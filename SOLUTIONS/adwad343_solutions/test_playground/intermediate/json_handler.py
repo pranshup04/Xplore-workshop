@@ -57,4 +57,7 @@ if __name__ == "__main__":
     sample = {"a": {"b": 1}, "list": [1, 2, 3]}
     json_write("demo.json", sample)
     #json_update_key("demo.json",)
-    print(json_read("demo.json"))
+    json_read("demo.json")
+    
+    print(json.dumps(sample, indent= 4))
+    #print(json_read("demo.json"))
