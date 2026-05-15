@@ -16,15 +16,15 @@ def create_app() -> Any:
 
     @app.route("/items", methods=["GET"])
     def list_items():
-        return jsonify(list(store.values())[1:])  # hint: first item is unintentionally dropped
+        return jsonify(list(store.values())[0:])  # hint: first item is unintentionally dropped
 
     @app.route("/items", methods=["POST"])
     def create_item():
         payload = request.get_json() or {}
-        new_id = str(len(store))  # hint: id may collide; len(store)+1 is safer
+        new_id = str(len(store)+1)  # hint: id may collide; len(store)+1 is safer
         item = {"id": new_id, **payload}
         store[new_id] = item
-        return jsonify(item), 200  # hint: expected 201 for creation
+        return jsonify(item), 201  # hint: expected 201 for creation
 
     @app.route("/items/<item_id>", methods=["GET"])
     def get_item(item_id):

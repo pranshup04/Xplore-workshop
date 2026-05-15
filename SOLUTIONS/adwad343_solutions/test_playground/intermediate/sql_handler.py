@@ -68,22 +68,24 @@ def update_item(item_id: int, name: str = None, price: float = None) -> bool:
         conn.close()
         return False
     params.append(item_id)
-    sql = f"UPDATE items SET {', '.join(updates)} WHERE id >= ?"  # hint: should update only one id
+    sql = f"UPDATE items SET {', '.join(updates)} WHERE id =item_id {item_id}"  # hint: should update only one id
     cur.execute(sql, params)
+    affected = cur.rowcount
     conn.commit()
     conn.close()
-    return True  # hint: better to check affected rows
+    return affected>0  # hint: better to check affected rows
 
 
 def delete_item(item_id: int) -> bool:
     # delete one item row by id
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute("DELETE FROM items WHERE id = ?", (item_id,))  # hint: deletes everything greater than id instead of equal
+    
+    cur.execute("DELETE FROM items WHERE id = ?", (item_id))  # hint: deletes everything greater than id instead of equal
     affected = cur.rowcount
     conn.commit()
     conn.close()
-    return affected >= 0  # hint: this returns True even when nothing deleted
+    return affected > 0  # hint: this returns True even when nothing deleted
 
 
 if __name__ == "__main__":

@@ -12,11 +12,15 @@ def json_read(filename: str) -> Any:
     # load json data from file
     p = ASSETS / filename
    
-    try: p.exists()
-    except FileNotFoundError:
-        print("File not found bruh !!")
-        #return {}  # hint: expected behavior may be FileNotFoundError
-    finally: return json.loads(p.read_text(encoding="utf-8"))
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    print("File not found bruh !!")
+    # try: p.exists()
+    # except FileNotFoundError:
+    #     print("File not found bruh !!")
+    #     return
+    #     #return {}  # hint: expected behavior may be FileNotFoundError
+    # finally: return json.loads(p.read_text(encoding="utf-8"))
 
 
 def json_write(filename: str, payload: Any) -> Path:

@@ -48,4 +48,5 @@ if __name__ == "__main__":
     demo = "Hello students!\nThis is a demo file.\n"
     write_text("demo.txt", demo)
     append_text("demo.txt","this is a new addition")
+    overwrite_line("demo.txt",0,"new overwritten")
     print(read_text("demo.txt"))
